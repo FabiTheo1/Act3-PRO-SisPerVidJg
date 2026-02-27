@@ -1,6 +1,6 @@
 package MVC.model;
 
 public interface Curacion {
-    int curar(Personaje objetivo);
-    int autocurar();
+    public int curar(Personaje objetivo);
+    public int autocurar();
 }

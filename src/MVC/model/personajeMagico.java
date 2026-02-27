@@ -1,14 +1,16 @@
 package MVC.model;
 
-public abstract class Magico extends Personaje {
-    private int mana;
-    private int manaMax;
-    private int poderMagico;
+import MVC.exceptions.ManaInsuficienteException;
 
-    protected Magico(String nombre, int nivel, int saludMax, int manaMax, int poderMagico) {
+public abstract class personajeMagico extends Personaje  {
+    protected int mana;
+    protected int manaMax;
+    protected int poderMagico;
+
+    protected personajeMagico(String nombre, int nivel, int saludMax, int mana, int poderMagico) {
         super(nombre, nivel, saludMax);
-        this.mana = manaMax;
-        this.manaMax = manaMax;
+        this.manaMax = mana;
+        this.mana = mana;
         this.poderMagico = poderMagico;
     }
 
@@ -50,15 +52,28 @@ public abstract class Magico extends Personaje {
 
     public boolean gastarMana(int cantidad) {
         if (cantidad > 0 && this.mana >= cantidad) {
-            setMana(getMana() - cantidad); // Utiliza el método setMana para asegurar que el maná no sea negativo
-            return true; // El gasto de maná fue exitoso
+            setMana(getMana() - cantidad);
+            return true;
         }
-        return false; // No se pudo gastar el maná
+        return false;
     }
 
-     public void regenerarMana(int cantidad) {
+    public void regenerarMana(int cantidad) {
         if (cantidad > 0) {
             setMana(this.mana + cantidad); // Utiliza el método setMana para asegurar que el maná no exceda el máximo
         }
     }
+
+    protected void consumirMana(int cantidad) throws ManaInsuficienteException {
+        if (this.mana < cantidad) {
+            throw new ManaInsuficienteException(
+                    getNombre() + " no tiene maná suficiente (" + mana + "/" + cantidad + ")"); // Lanza la excepción si no hay maná suficiente
+        }
+        this.mana -= cantidad;
+    }
+
+    public abstract void usarHabilidadEspecial();
+
+    public abstract void atacar(Personaje objetivo);
+    
 }
