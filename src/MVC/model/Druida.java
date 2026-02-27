@@ -6,7 +6,7 @@ import MVC.exceptions.ManaInsuficienteException;
  * Clase Druida: Personaje mágico que utiliza el poder de la naturaleza.
  * Puede cambiar de forma y realizar curaciones constantes.
  */
-public class Druida extends personajeMagico implements Curacion {
+public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     // --- ATRIBUTOS ---
     private String formaActual; // Ejemplo: "Humano", "Oso", "Lince"
@@ -99,6 +99,21 @@ public class Druida extends personajeMagico implements Curacion {
             return getSalud() - saludAntes;
         }
         return 0;
+    }
+
+    // --- IMPLEMENTACIÓN DE INTERFAZ (Sigiloso) ---
+
+    @Override
+    public void esconderse() {
+        // Lógica de transformación automática al entrar en sigilo
+        String formaPrevia = this.formaActual;
+        this.formaActual = "Pantera de las Sombras";
+
+        System.out.println(getNombre() + " se agazapa y cambia de " + formaPrevia + " a " + formaActual + ".");
+        System.out.println("Las hojas del entorno lo cubren por completo.");
+
+        // Llamada al método por defecto de la interfaz Sigiloso
+        avisarSigilo();
     }
 
     // --- MÉTODOS DE ESTADO ---
