@@ -59,8 +59,10 @@ public abstract class Personaje {
         }
     }
 
-    // Valor de la salud máxima, podría ser modificado por objetos curables o mágicos
-    // Los distintos personajes podrían tener diferentes valores de salud máxima, dependiendo de su clase o nivel
+    // Valor de la salud máxima, podría ser modificado por objetos curables o
+    // mágicos
+    // Los distintos personajes podrían tener diferentes valores de salud máxima,
+    // dependiendo de su clase o nivel
     public void setSaludMax(int saludMax) {
         if (saludMax > 0) {
             this.saludMax = saludMax;
@@ -73,7 +75,16 @@ public abstract class Personaje {
     // Método para recibir daño
     public void recibirDanio(int cantidad) {
         if (cantidad > 0) {
-            setSalud(getSalud() - cantidad); // Se utiliza el método setSalud para asegurarse de que la salud se mantenga dentro de los límites establecidos
+            setSalud(getSalud() - cantidad); // Se utiliza el método setSalud para asegurarse de que la salud se
+                                             // mantenga dentro de los límites establecidos
+        }
+    }
+
+    // Método para recibir curación
+    public void recibirCuracion(int cantidad) {
+        if (cantidad > 0) {
+            setSalud(getSalud() + cantidad);
+            System.out.println(getNombre() + " se ha curado y ahora tiene " + getSalud() + " de salud.");
         }
     }
 
@@ -97,7 +108,8 @@ public abstract class Personaje {
         return id.equals(personaje.id); // Compara los IDs para determinar igualdad
     }
 
-    // El hashCode se basa en el ID único del personaje para garantizar que personajes diferentes tengan hash codes diferentes
+    // El hashCode se basa en el ID único del personaje para garantizar que
+    // personajes diferentes tengan hash codes diferentes
     @Override
     public int hashCode() {
         return id.hashCode();
@@ -106,6 +118,6 @@ public abstract class Personaje {
     // Método toString para representar el personaje como una cadena de texto
     @Override
     public String toString() {
-        return "Personaje " +  " | nombre ='" + getNombre() + " | nivel =" + getNivel() + "| salud =" + getSalud();
+        return "Personaje " + " | nombre ='" + getNombre() + " | nivel =" + getNivel() + "| salud =" + getSalud();
     }
 }
