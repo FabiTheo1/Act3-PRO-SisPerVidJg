@@ -29,4 +29,9 @@ public abstract class Fisico extends Personaje {
             this.defensa = defensa;
         }
     }
+
+    // Método para calcular el daño que un personaje físico puede infligir
+    public int calcularDanio() {
+        return getFuerza() * getNivel(); // El daño se calcula como la fuerza multiplicada por el nivel del personaje
+    }
 }
