@@ -1,18 +1,27 @@
 package MVC.model;
 
-public class Mago extends personajeMagico {
+public class Mago extends personajeMagico implements Curacion {
    private String elemento;
    private String escuela;
    private boolean tieneGrimorio;
+   private Personaje objetivo;
 
-    public Mago(String nombre, int nivel, int saludMax, int mana, int poderMagico, String elemento, String escuela, boolean tieneGrimorio) {
+    public Mago(String nombre, int nivel, int saludMax, int mana, int poderMagico, String elemento, String escuela, boolean tieneGrimorio, Personaje objetivo) {
         super(nombre, nivel, saludMax, mana, poderMagico);
         this.elemento = elemento;
         this.escuela = escuela;
         this.tieneGrimorio = tieneGrimorio;
+        this.objetivo = objetivo;
     }
 
-    
+    public Personaje getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(Personaje objetivo) {
+        this.objetivo = objetivo;
+    }
+
     public String getElemento() {
         return elemento;   
     }
@@ -49,16 +58,26 @@ public class Mago extends personajeMagico {
 
     @Override
     public void recibirDanio(int cantidad) {
-        throw new UnsupportedOperationException("Unimplemented method 'recibirDanio'");
+        throw new UnsupportedOperationException("recibirDanio");
+    }
+
+    @Override
+    public int curar(Personaje objetivo) {
+        throw new UnsupportedOperationException("curar");
+    }
+
+    @Override
+    public int autocurar() {
+        throw new UnsupportedOperationException("autocurar");
     }
 
     @Override
     public boolean estaVivo() {
-        throw new UnsupportedOperationException("Unimplemented method 'estaVivo'");
+        throw new UnsupportedOperationException("estaVivo");
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+        throw new UnsupportedOperationException("toString");
     }
 }
