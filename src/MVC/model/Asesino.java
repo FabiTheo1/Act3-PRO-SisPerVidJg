@@ -1,5 +1,8 @@
 package MVC.model;
 
+import MVC.exceptions.AccionInvalidaException;
+import MVC.exceptions.AtributoInvalidoException;
+
 /**
  * Clase Asesino
  * 
@@ -28,6 +31,7 @@ public class Asesino extends personajeFisico {
         this.puntosCombo = 0;
     }
 
+    // --- METODOS ---
     /**
      * Método propio: Habilidad específica del personaje
      */
@@ -44,9 +48,25 @@ public class Asesino extends personajeFisico {
      */
     @Override
     public void atacar(Personaje objetivo) {
+        // 1. Validaciones estrictas de combate
+        if (objetivo == null) {
+            throw new AtributoInvalidoException("ERROR: El objetivo del ataque no puede ser nulo.");
+        }
+        if (this.equals(objetivo)) {
+            throw new AccionInvalidaException("ERROR: " + getNombre() + " no puede atacarse a sí mismo.");
+        }
+        if (!this.estaVivo()) {
+            throw new AccionInvalidaException("ERROR: " + getNombre() + " está muerto y no puede atacar.");
+        }
+        if (!objetivo.estaVivo()) {
+            throw new AccionInvalidaException(
+                    "ERROR: No puedes atacar a " + objetivo.getNombre() + " porque ya está muerto.");
+        }
+
+        // 2. Lógica combate específica del Asesino
         int danioFinal = calcularDanio();
 
-        // Lógica de ataque crítico
+        // Lógica ataque crítico
         boolean esCritico = Math.random() <= this.probCritico;
         if (esCritico) {
             danioFinal *= 2;
@@ -56,12 +76,12 @@ public class Asesino extends personajeFisico {
         // Daño extra si tiene puntos de combo
         if (this.puntosCombo > 0) {
             danioFinal += (this.puntosCombo * 5);
-            // Gasta los puntos
+            // Gasta los puntos tras el ataque
             this.puntosCombo = 0;
         }
 
-        System.out.println(getNombre() + " apuñala rápidamente a " + objetivo.getNombre() + " infligiendo "
-                + danioFinal + " de daño.");
+        System.out.println(getNombre() + " apuñala rápidamente a " + objetivo.getNombre() + " infligiendo " + danioFinal
+                + " de daño.");
         objetivo.recibirDanio(danioFinal);
     }
 

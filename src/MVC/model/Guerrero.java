@@ -1,5 +1,8 @@
 package MVC.model;
 
+import MVC.exceptions.AccionInvalidaException;
+import MVC.exceptions.AtributoInvalidoException;
+
 /**
  * Clase Guerrero
  * 
@@ -27,6 +30,7 @@ public class Guerrero extends personajeFisico implements Defendible {
         this.posturaDefensiva = false;
     }
 
+    // --- METODOS ---
     /**
      * Método propio: Habilidad específica del personaje
      */
@@ -42,12 +46,26 @@ public class Guerrero extends personajeFisico implements Defendible {
      */
     @Override
     public void atacar(Personaje objetivo) {
-        // Usa el método de la clase padre y le suma un bonus por ira
+        // 1. Validaciones de combate
+        if (objetivo == null) {
+            throw new AtributoInvalidoException("ERROR: El objetivo del ataque no puede ser nulo.");
+        }
+        if (this.equals(objetivo)) {
+            throw new AccionInvalidaException("ERROR: " + getNombre() + " no puede atacarse a sí mismo.");
+        }
+        if (!this.estaVivo()) {
+            throw new AccionInvalidaException("ERROR: " + getNombre() + " está muerto y no puede atacar.");
+        }
+        if (!objetivo.estaVivo()) {
+            throw new AccionInvalidaException(
+                    "ERROR: No puedes atacar a " + objetivo.getNombre() + " porque ya está muerto.");
+        }
+
+        // 2. Lógica ataque, si todo es válido
         int danioFinal = calcularDanio() + (this.ira / 5);
         System.out.println(getNombre() + " ataca brutalmente con su hacha a " + objetivo.getNombre()
                 + " causando " + danioFinal + " de daño.");
         objetivo.recibirDanio(danioFinal);
-        // Al atacar, pierde la postura defensiva
         this.posturaDefensiva = false;
     }
 

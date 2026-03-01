@@ -1,5 +1,7 @@
 package MVC.model;
 
+import MVC.exceptions.AtributoInvalidoException;
+
 /**
  * Clase PersonajeFisico
  * 
@@ -21,10 +23,11 @@ public abstract class personajeFisico extends Personaje {
      */
     protected personajeFisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
         super(nombre, nivel, saludMax);
-        this.fuerza = fuerza;
-        this.defensa = defensa;
+        setFuerza(fuerza);
+        setDefensa(defensa);
     }
 
+    // --- GETTERS ---
     /**
      * Método para obtener la fuerza
      * 
@@ -32,17 +35,6 @@ public abstract class personajeFisico extends Personaje {
      */
     public int getFuerza() {
         return fuerza;
-    }
-
-    /**
-     * Método para establecer la fuerza
-     * 
-     * @param fuerza Fuerza del personaje
-     */
-    public void setFuerza(int fuerza) {
-        if (fuerza >= 0) {
-            this.fuerza = fuerza;
-        }
     }
 
     /**
@@ -54,17 +46,32 @@ public abstract class personajeFisico extends Personaje {
         return defensa;
     }
 
+    // --- SETTERS ---
+    /**
+     * Método para establecer la fuerza
+     * 
+     * @param fuerza Fuerza del personaje
+     */
+    public void setFuerza(int fuerza) {
+        if (fuerza < 0) {
+            throw new AtributoInvalidoException("ERROR: La fuerza no puede ser negativa. Valor recibido: " + fuerza);
+        }
+        this.fuerza = fuerza;
+    }
+
     /**
      * Método para establecer la defensa
      * 
      * @param defensa Defensa del personaje
      */
     public void setDefensa(int defensa) {
-        if (defensa >= 0) {
-            this.defensa = defensa;
+        if (defensa < 0) {
+            throw new AtributoInvalidoException("ERROR: La defensa no puede ser negativa. Valor recibido: " + defensa);
         }
+        this.defensa = defensa;
     }
 
+    // --- METODOS ---
     /**
      * Método para calcular el daño
      * 
