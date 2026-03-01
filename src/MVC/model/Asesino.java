@@ -2,6 +2,7 @@ package MVC.model;
 
 import MVC.exceptions.AccionInvalidaException;
 import MVC.exceptions.AtributoInvalidoException;
+import MVC.exceptions.SinMunicionException;
 
 /**
  * Clase Asesino
@@ -10,28 +11,54 @@ import MVC.exceptions.AtributoInvalidoException;
  * @since 2026-03-01
  */
 
-public class Asesino extends personajeFisico {
+public class Asesino extends personajeFisico implements Sigiloso, Lanzar {
     // Atributos específicos de la clase Asesino
     private int puntosCombo;
     private double probCritico;
+    private int cuchillosArrojadizos;
 
     /**
      * Constructor de la clase Asesino
      * 
-     * @param nombre      Nombre del personaje
-     * @param nivel       Nivel del personaje
-     * @param saludMax    Salud máxima del personaje
-     * @param fuerza      Fuerza del personaje
-     * @param defensa     Defensa del personaje
-     * @param probCritico Probabilidad de crítico del personaje
+     * @param nombre               Nombre del personaje
+     * @param nivel                Nivel del personaje
+     * @param saludMax             Salud máxima del personaje
+     * @param fuerza               Fuerza del personaje
+     * @param defensa              Defensa del personaje
+     * @param probCritico          Probabilidad de crítico del personaje
+     * @param cuchillosArrojadizos Cuchillos arrojadizos del personaje
      */
-    public Asesino(String nombre, int nivel, int saludMax, int fuerza, int defensa, double probCritico) {
+    public Asesino(String nombre, int nivel, int saludMax, int fuerza, int defensa, double probCritico,
+            int cuchillosArrojadizos) {
         super(nombre, nivel, saludMax, fuerza, defensa);
         this.probCritico = probCritico;
         this.puntosCombo = 0;
+        this.cuchillosArrojadizos = Math.max(0, cuchillosArrojadizos);
     }
 
     // --- METODOS ---
+
+    /**
+     * Método para validar el ataque
+     * 
+     * @param objetivo Personaje objetivo
+     */
+    private void validarAtaque(Personaje objetivo) {
+        if (objetivo == null) {
+            throw new AtributoInvalidoException("ERROR: El objetivo del ataque no puede ser nulo.");
+        }
+        if (this.equals(objetivo)) {
+            throw new AccionInvalidaException("ERROR: " + getNombre() + " no puede atacarse a sí mismo.");
+        }
+        if (!this.estaVivo()) {
+            throw new AccionInvalidaException("ERROR: " + getNombre() + " está muerto y no puede realizar acciones.");
+        }
+        if (!objetivo.estaVivo()) {
+            throw new AccionInvalidaException(
+                    "ERROR: No puedes apuntar a " + objetivo.getNombre() + " porque ya está muerto.");
+        }
+    }
+
     /**
      * Método propio: Habilidad específica del personaje
      */
@@ -39,6 +66,11 @@ public class Asesino extends personajeFisico {
         this.puntosCombo += 2;
         System.out.println(getNombre() + " se oculta en las sombras y prepara una emboscada. Puntos de combo: "
                 + this.puntosCombo);
+    }
+
+    @Override
+    public void ocultarse() {
+        System.out.println(getNombre() + " se desvanece en las sombras, volviéndose invisible temporalmente.");
     }
 
     /**
@@ -49,19 +81,7 @@ public class Asesino extends personajeFisico {
     @Override
     public void atacar(Personaje objetivo) {
         // 1. Validaciones estrictas de combate
-        if (objetivo == null) {
-            throw new AtributoInvalidoException("ERROR: El objetivo del ataque no puede ser nulo.");
-        }
-        if (this.equals(objetivo)) {
-            throw new AccionInvalidaException("ERROR: " + getNombre() + " no puede atacarse a sí mismo.");
-        }
-        if (!this.estaVivo()) {
-            throw new AccionInvalidaException("ERROR: " + getNombre() + " está muerto y no puede atacar.");
-        }
-        if (!objetivo.estaVivo()) {
-            throw new AccionInvalidaException(
-                    "ERROR: No puedes atacar a " + objetivo.getNombre() + " porque ya está muerto.");
-        }
+        validarAtaque(objetivo);
 
         // 2. Lógica combate específica del Asesino
         int danioFinal = calcularDanio();
@@ -85,6 +105,29 @@ public class Asesino extends personajeFisico {
         objetivo.recibirDanio(danioFinal);
     }
 
+    /**
+     * Método para lanzar un objeto
+     * 
+     * @param objetivo Personaje objetivo
+     */
+    @Override
+    public void lanzarObjeto(Personaje objetivo) {
+        validarAtaque(objetivo);
+
+        if (this.cuchillosArrojadizos <= 0) {
+            throw new SinMunicionException(getNombre() + " se ha quedado sin cuchillos para lanzar.");
+        }
+
+        this.cuchillosArrojadizos--;
+        // El asesino hace menos daño base lanzando, pero suma sus puntos de combo
+        int danioLanzamiento = (getFuerza() / 2) + 5 + (this.puntosCombo * 2);
+        this.puntosCombo = 0; // Gastamos el combo al lanzar
+
+        System.out.println(getNombre() + " lanza un cuchillo envenenado a " + objetivo.getNombre() + " causando "
+                + danioLanzamiento + " de daño. (Cuchillos restantes: " + this.cuchillosArrojadizos + ")");
+        objetivo.recibirDanio(danioLanzamiento);
+    }
+
     // --- GETTERS ---
     /**
      * Método para obtener los puntos de combo
@@ -102,5 +145,14 @@ public class Asesino extends personajeFisico {
      */
     public double getProbCritico() {
         return probCritico;
+    }
+
+    /**
+     * Método para obtener los cuchillos arrojadizos
+     * 
+     * @return Cuchillos arrojadizos
+     */
+    public int getCuchillosArrojadizos() {
+        return cuchillosArrojadizos;
     }
 }
