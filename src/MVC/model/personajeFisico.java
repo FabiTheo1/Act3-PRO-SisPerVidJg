@@ -1,10 +1,10 @@
 package MVC.model;
 
-public abstract class Fisico extends Personaje {
+public abstract class personajeFisico extends Personaje {
     private int fuerza;
     private int defensa;
 
-    protected Fisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
+    protected personajeFisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
         super(nombre, nivel, saludMax);
         this.fuerza = fuerza;
         this.defensa = defensa;
