@@ -1,37 +1,76 @@
 package MVC.model;
 
+/**
+ * Clase PersonajeFisico
+ * 
+ * @author Jeremi
+ * @since 2026-03-01
+ */
 public abstract class personajeFisico extends Personaje {
     private int fuerza;
     private int defensa;
 
+    /**
+     * Constructor de la clase PersonajeFisico
+     * 
+     * @param nombre   Nombre del personaje
+     * @param nivel    Nivel del personaje
+     * @param saludMax Salud máxima del personaje
+     * @param fuerza   Fuerza del personaje
+     * @param defensa  Defensa del personaje
+     */
     protected personajeFisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
         super(nombre, nivel, saludMax);
         this.fuerza = fuerza;
         this.defensa = defensa;
     }
 
+    /**
+     * Método para obtener la fuerza
+     * 
+     * @return Fuerza del personaje
+     */
     public int getFuerza() {
         return fuerza;
     }
 
+    /**
+     * Método para establecer la fuerza
+     * 
+     * @param fuerza Fuerza del personaje
+     */
     public void setFuerza(int fuerza) {
         if (fuerza >= 0) {
             this.fuerza = fuerza;
         }
     }
 
+    /**
+     * Método para obtener la defensa
+     * 
+     * @return Defensa del personaje
+     */
     public int getDefensa() {
         return defensa;
     }
 
+    /**
+     * Método para establecer la defensa
+     * 
+     * @param defensa Defensa del personaje
+     */
     public void setDefensa(int defensa) {
         if (defensa >= 0) {
             this.defensa = defensa;
         }
     }
 
-    // Método para calcular el daño que un personaje físico puede infligir
+    /**
+     * Método para calcular el daño
+     * 
+     * @return Daño del personaje
+     */
     public int calcularDanio() {
-        return getFuerza() * getNivel(); // El daño se calcula como la fuerza multiplicada por el nivel del personaje
+        return getFuerza() * getNivel();
     }
 }
