@@ -1,10 +1,10 @@
 package MVC.model;
 
 /**
- * (Comentario estilo JavaDoc prueba)
- * CLASE ARMA - Creada por Persona 4
- * Esta clase permite que el daño y la munición no dependan del personaje, 
- * sino del objeto que sostiene.
+ * CLASE ARMA - Creada por Fabian
+ * Implementa el patrón de diseño "Composición". Un personaje "tiene un" arma.
+ * Agrupa todas las armas específicas utilizando "Clases Internas Estáticas" (Static Inner Classes)
+ * para mantener el proyecto limpio y no generar decenas de archivos pequeños.
  */
 public abstract class Arma {
     private String nombre;
@@ -13,17 +13,18 @@ public abstract class Arma {
     private int capacidadMaxima;
     private boolean usaMunicion;
 
+    // Constructor base de las armas
     public Arma(String nombre, int danioBase, int capacidadMaxima, boolean usaMunicion) {
         this.nombre = nombre;
         this.danioBase = danioBase;
         this.capacidadMaxima = capacidadMaxima;
-        this.municionActual = capacidadMaxima; // Inicia cargada
+        this.municionActual = capacidadMaxima; 
         this.usaMunicion = usaMunicion;
     }
 
-    // Método para disparar/lanzar
+    // Método que evalúa si el arma puede usarse basándose en su munición
     public boolean usar() {
-        if (!usaMunicion) return true; // Si es algo como una honda infinita o magia
+        if (!usaMunicion) return true; // Armas con munición infinita
         if (municionActual > 0) {
             municionActual--;
             return true;
@@ -46,28 +47,23 @@ public abstract class Arma {
         return nombre + " (Daño: " + danioBase + " | Mun: " + (usaMunicion ? municionActual : "∞") + ")";
     }
 
+    // =========================================================
+    // CLASES INTERNAS ESTÁTICAS (Tipos concretos de Armas)
+    // =========================================================
+
     public static class Arco extends Arma {
-        public Arco() { 
-            super("Arco Largo", 15, 20, true); 
-        }
+        public Arco() { super("Arco Largo", 15, 20, true); }
     }
 
     public static class Ballesta extends Arma {
-        public Ballesta() { 
-            super("Ballesta Pesada", 25, 5, true); 
-        }
+        public Ballesta() { super("Ballesta Pesada", 25, 5, true); }
     }
 
     public static class Jabalina extends Arma {
-        public Jabalina() { 
-            super("Jabalina de Acero", 35, 1, true); 
-        }
+        public Jabalina() { super("Jabalina de Acero", 35, 1, true); }
     }
 
     public static class Honda extends Arma {
-        public Honda() { 
-            // La honda no gasta munición (false), balas infinitas
-            super("Honda de Cuero", 8, 0, false); 
-        }
+        public Honda() { super("Honda de Cuero", 8, 0, false); }
     }
 }

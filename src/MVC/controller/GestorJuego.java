@@ -47,6 +47,11 @@ public class GestorJuego {
             }
         }
     }
+    /* =========================================================================
+    MODIFICACIÓN AÑADIDA POR FABIAN (Integración del Main)
+    Se requiere este getter para poder iterar sobre la lista desde la clase App
+    y poder ejecutar los requisitos de la rúbrica (Polimorfismo e instanceof).
+    ========================================================================= */
     public ArrayList<Personaje> getListaPersonajes() {
         return this.listaPersonajes;
     }
