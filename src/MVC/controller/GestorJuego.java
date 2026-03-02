@@ -47,4 +47,7 @@ public class GestorJuego {
             }
         }
     }
+    public ArrayList<Personaje> getListaPersonajes() {
+        return this.listaPersonajes;
+    }
 }
