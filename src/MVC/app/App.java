@@ -1,16 +1,22 @@
 package MVC.app;
 
+import MVC.controller.GestorJuego;
+import MVC.model.*;
 import MVC.view.ConsolaView;
 
 public class App {
     public static void main(String[] args) {
         ConsolaView vista = new ConsolaView();
-        // TODO: Instanciar GestorJuego (Persona 1)
+        GestorJuego gestor = new GestorJuego();
         
-        vista.mostrarMensaje("Iniciando el gestor de personajes...");
+        // 1. Creación de las armas
+        Arma arcoPro = new Arma.Arco();
+        
+        // 2. Creación del personaje pasándole el arma por composición
+        CombatienteDistancia legolas = new CombatienteDistancia("Legolas", 5, 100, 10, 5, arcoPro);
 
-        // TODO: Crear instancias de Guerrero, Mago, etc. (Personas 2 y 3)
-        // TODO: Añadir los personajes al GestorJuego
+        // Añadimos el personaje al gestor
+        gestor.agregarPersonaje(legolas);
 
         boolean salir = false;
         while (!salir) {
@@ -19,16 +25,24 @@ public class App {
 
             switch (opcion) {
                 case 1:
-                    vista.mostrarMensaje("Listando personajes...");
-                    // TODO: Llamar al GestorJuego para listar con toString()
+                    gestor.mostrarPersonajes();
                     break;
                 case 2:
-                    vista.mostrarMensaje("Iniciando fase de combate...");
-                    // TODO: Bucle polimórfico (for p : personajes -> p.atacar())
+                    vista.mostrarMensaje("--- Simulacro de Combate (Polimorfismo) ---");
+                    // CORRECCIÓN: Ahora todos atacan a 'legolas' en lugar de al inexistente 'arq1'
+                    for (Personaje p : gestor.getListaPersonajes()) {
+                        p.atacar(legolas); 
+                    }
                     break;
                 case 3:
-                    vista.mostrarMensaje("Usando habilidades especiales...");
-                    // TODO: Bucle con instanceof (if p instanceof Curable...)
+                    vista.mostrarMensaje("--- Uso de Habilidades Especiales (instanceof) ---");
+                    for (Personaje p : gestor.getListaPersonajes()) {
+                        if (p instanceof Curacion) {
+                            ((Curacion) p).autocurar();
+                        } else {
+                            vista.mostrarMensaje(p.getNombre() + " no tiene habilidades de curación.");
+                        }
+                    }
                     break;
                 case 4:
                     salir = true;
