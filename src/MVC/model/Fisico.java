@@ -4,7 +4,7 @@ public abstract class Fisico extends Personaje {
     private int fuerza;
     private int defensa;
 
-    protected Fisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
+    protected Fisico(String nombre, int nivel, int saludMax) {
         super(nombre, nivel, saludMax);
         this.fuerza = fuerza;
         this.defensa = defensa;
