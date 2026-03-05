@@ -51,19 +51,45 @@ public abstract class Arma {
     // CLASES INTERNAS ESTÁTICAS (Tipos concretos de Armas)
     // =========================================================
 
+    // Arma balanceada, estándar y versatil.
     public static class Arco extends Arma {
         public Arco() { super("Arco Largo", 15, 20, true); }
     }
 
+    // Daño alto, poca capacidad de munición y recarga lento.
     public static class Ballesta extends Arma {
         public Ballesta() { super("Ballesta Pesada", 25, 5, true); }
     }
 
+    // Mucho daño, pero solo tiene una jabalina por combate.
     public static class Jabalina extends Arma {
         public Jabalina() { super("Jabalina de Acero", 35, 1, true); }
     }
 
+    // Munición infinita pero poco daño.
     public static class Honda extends Arma {
         public Honda() { super("Honda de Cuero", 8, 0, false); }
+    }
+
+    // --- NUEVAS ARMAS AÑADIDAS ---
+
+    public static class Mosquete extends Arma {
+        // Mucho daño, pero solo 1 bala antes de recargar.
+        public Mosquete() { super("Mosquete Imperial", 50, 1, true); } 
+    }
+
+    // Arma secundaria por defecto de los combatientes a distancia.
+    public static class Daga extends Arma {
+        public Daga() { super("Daga de Combate", 10, 0, false); }
+    }
+
+    // Arma secundaria, rápida con poco daño, puede usarse con escudo.
+    public static class EspadaCorta extends Arma {
+        public EspadaCorta() { super("Espada Corta", 15, 0, false); }
+    }
+
+    public static class EscudoPequeno extends Arma {
+        // Escudo que pueden utilizar los combatientes a distancia.
+        public EscudoPequeno() { super("Escudo de Madera", 0, 0, false); }
     }
 }
