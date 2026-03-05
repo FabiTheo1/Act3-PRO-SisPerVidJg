@@ -1,36 +1,42 @@
 package MVC.model;
 
 /**
- * CLASE COMBATIENTE DISTANCIA (Clase Concreta 6/6) - Creada por Fabian
- * Hereda de Fisico. Destaca por usar el patrón Composición para equipar
- * objetos de tipo Arma, permitiendo cambiar el estilo de ataque dinámicamente.
+ * CLASE PADRE ABSTRACTA CREADO POR FABIAN (Director de Juego)- CombatienteDistancia
+ * Clase abstracta que permite que hereden clases especificas.
  */
-public class CombatienteDistancia extends Fisico {
-    private Arma armaEquipada; // Atributo de composición
+public abstract class CombatienteDistancia extends Fisico {
+    // Cambiamos a protected para que las clases hijas puedan acceder al arma
+    protected Arma armaEquipada; 
 
     public CombatienteDistancia(String nombre, int nivel, int saludMax, int fuerza, int defensa, Arma arma) {
         super(nombre, nivel, saludMax, fuerza, defensa);
-        this.armaEquipada = arma; // Inyección de dependencias a través del constructor
+        this.armaEquipada = arma;
     }
 
+    //Eliminación de comentarios innecesarios
     @Override
     public void atacar(Personaje objetivo) {
-        // Delega la responsabilidad de chequear la munición al objeto Arma
         if (armaEquipada.usar()) {
-            // El daño se calcula combinando los stats del personaje y los del arma
             int danioTotal = (getFuerza() + armaEquipada.getDanioBase()) * getNivel();
-            System.out.println(getNombre() + " usa " + armaEquipada.getNombre() + 
-                               " contra " + objetivo.getNombre() + " causando " + danioTotal + " ptos.");
+            System.out.println(getNombre() + " dispara su " + armaEquipada.getNombre() + 
+                               " contra " + objetivo.getNombre() + " causando " + danioTotal + " ptos de daño físico.");
             objetivo.recibirDanio(danioTotal);
         } else {
             System.out.println(getNombre() + " intenta atacar pero no tiene munición para su " + armaEquipada.getNombre() + "!");
         }
     }
 
-    // Setter especial que permite cambiar de arma en tiempo de ejecución
+    // Permite que los personajes que posean de más armas puedan cambiar de arma.
     public void cambiarArma(Arma nuevaArma) {
         System.out.println(getNombre() + " ha cambiado su arma a: " + nuevaArma.getNombre());
         this.armaEquipada = nuevaArma;
+    }
+
+    public Arma getArmaEquipada() { return armaEquipada; }
+
+    public void recargarArma() {
+        armaEquipada.recargar(10);
+        System.out.println(getNombre() + " recarga su " + armaEquipada.getNombre() + ". (Munición: " + armaEquipada.getMunicionActual() + ")");
     }
 
     @Override
