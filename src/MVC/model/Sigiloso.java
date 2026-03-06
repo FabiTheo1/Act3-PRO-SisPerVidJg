@@ -1,6 +1,7 @@
 package MVC.model;
 
 /**
+<<<<<<< HEAD
  * Interfaz Sigiloso: Define las habilidades de sigilo de un personaje.
  */
 public interface Sigiloso {
@@ -16,3 +17,16 @@ public interface Sigiloso {
         System.out.println("[SISTEMA] El personaje ha entrado en modo sigilo.");
     }
 }
+=======
+ * Interfaz Sigiloso para personajes que pueden ocultarse o usar las sombras.
+ * 
+ * @author Jeremi
+ * @since 2026-03-01
+ */
+public interface Sigiloso {
+    /**
+     * Método para ocultarse y obtener ventajas tácticas.
+     */
+    void ocultarse();
+}
+>>>>>>> origin/PersonajesFisicos-Jeremi

@@ -4,6 +4,7 @@ import MVC.view.ConsolaView;
 
 public class App {
     public static void main(String[] args) {
+<<<<<<< HEAD
         ConsolaView vista = new ConsolaView();
         // TODO: Instanciar GestorJuego (Persona 1)
         
@@ -38,5 +39,8 @@ public class App {
                     vista.mostrarMensaje("Opción no válida.");
             }
         }
+=======
+
+>>>>>>> origin/PersonajesFisicos-Jeremi
     }
 }
