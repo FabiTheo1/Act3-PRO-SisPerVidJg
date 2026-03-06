@@ -28,8 +28,6 @@ El proyecto está dividido en paquetes siguiendo el patrón **MVC**:
 - `MVC.model`: El corazón lógico del juego. Contiene la jerarquía de clases de Personajes, las Interfaces, las Armas y las Excepciones.
 - `MVC.view`: Contiene `ConsolaView.java`, aislando completamente los `System.out` y `Scanner` para que el modelo nunca dependa de la consola.
 
-
-
 ### 🌳 Jerarquía de Clases (Modelo)
 
 ```text
@@ -51,7 +49,7 @@ Personaje (Abstracta)
       ├── Nigromante (Drenaje de Almas y Esqueletos)
       ├── Druida (Cambio de Forma y Regeneración)
       └── ArqueroMagico (Híbrido Magia/Arco)
-
+```
 ## ⚙️ Interfaces Implementadas
 Curacion: Para personajes que pueden curarse a sí mismos o a aliados (Mago, Druida).
 
