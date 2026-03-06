@@ -2,11 +2,10 @@ package MVC.model;
 
 import MVC.exceptions.ManaInsuficienteException;
 
-
 /**
- * Clase Mago: Representa un personaje de tipo mágico especializado en elementos y curación.
+ * Clase Mago: Representa un personaje de tipo mágico especializado en elementos
+ * y curación.
  * Hereda de personajeMagico e implementa la interfaz Curacion.
- * @author Jonay Rivero
  */
 
 public class Mago extends personajeMagico implements Curacion {
@@ -17,15 +16,16 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Constructor de la clase Mago
-     * @param nombre Nombre del mago
-     * @param nivel Nivel del mago
-     * @param saludMax Salud máxima del mago
-     * @param mana Mana del mago
-     * @param poderMagico Poder mágico del mago
-     * @param elemento Elemento del mago
-     * @param escuela Escuela del mago
+     * 
+     * @param nombre        Nombre del mago
+     * @param nivel         Nivel del mago
+     * @param saludMax      Salud máxima del mago
+     * @param mana          Mana del mago
+     * @param poderMagico   Poder mágico del mago
+     * @param elemento      Elemento del mago
+     * @param escuela       Escuela del mago
      * @param tieneGrimorio Si el mago tiene grimorio
-     * @param objetivo Objetivo del mago
+     * @param objetivo      Objetivo del mago
      */
     public Mago(String nombre, int nivel, int saludMax, int mana, int poderMagico, String elemento, String escuela,
             boolean tieneGrimorio, Personaje objetivo) {
@@ -40,6 +40,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Obtiene el objetivo del mago
+     * 
      * @return Objetivo del mago
      */
     public Personaje getObjetivo() {
@@ -48,6 +49,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Establece el objetivo del mago
+     * 
      * @param objetivo Objetivo del mago
      */
     public void setObjetivo(Personaje objetivo) {
@@ -56,6 +58,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Obtiene el elemento del mago
+     * 
      * @return Elemento del mago
      */
     public String getElemento() {
@@ -64,6 +67,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Establece el elemento del mago
+     * 
      * @param elemento Elemento del mago
      */
     public void setElemento(String elemento) {
@@ -72,6 +76,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Obtiene la escuela del mago
+     * 
      * @return Escuela del mago
      */
     public String getEscuela() {
@@ -80,6 +85,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Establece la escuela del mago
+     * 
      * @param escuela Escuela del mago
      */
     public void setEscuela(String escuela) {
@@ -88,6 +94,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Verifica si el mago tiene grimorio
+     * 
      * @return true si el mago tiene grimorio, false en caso contrario
      */
     public boolean isTieneGrimorio() {
@@ -96,6 +103,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Establece si el mago tiene grimorio
+     * 
      * @param tieneGrimorio true si el mago tiene grimorio, false en caso contrario
      */
     public void setTieneGrimorio(boolean tieneGrimorio) {
@@ -106,6 +114,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Ataca a un objetivo
+     * 
      * @param objetivo Objetivo al que atacar
      */
     @Override
@@ -115,10 +124,10 @@ public class Mago extends personajeMagico implements Curacion {
         if (gastarMana(costeMana)) {
             // Calcula el daño base
             int danioBase = 10 + getPoderMagico();
-            
+
             // Bonus pasivo si el mago posee su libro de hechizos
             if (tieneGrimorio) {
-                danioBase += 5; 
+                danioBase += 5;
             }
 
             System.out.println(getNombre() + " lanza un hechizo de " + elemento + " a " + objetivo.getNombre());
@@ -132,6 +141,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Usa la habilidad especial del mago
+     * 
      * @throws ManaInsuficienteException Si no tiene maná suficiente
      */
     @Override
@@ -139,7 +149,8 @@ public class Mago extends personajeMagico implements Curacion {
         try {
             // Habilidad de alto coste que requiere gestión de excepciones
             consumirMana(40);
-            System.out.println(getNombre() + " canaliza la energía de la escuela " + escuela + " para un ataque devastador.");
+            System.out.println(
+                    getNombre() + " canaliza la energía de la escuela " + escuela + " para un ataque devastador.");
         } catch (ManaInsuficienteException e) {
             System.out.println("Error de lanzamiento: " + e.getMessage());
         }
@@ -149,6 +160,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Cura a un objetivo
+     * 
      * @param objetivo Objetivo al que curar
      * @return Cantidad de salud curada
      */
@@ -159,7 +171,8 @@ public class Mago extends personajeMagico implements Curacion {
             int cantidadCurada = 15 + (getPoderMagico() / 2);
             // Se asume que la clase Personaje tiene el método recibirCuracion
             objetivo.recibirCuracion(cantidadCurada);
-            System.out.println(getNombre() + " ha curado a " + objetivo.getNombre() + " +" + cantidadCurada + " HP.");
+            System.out
+                    .println(getNombre() + " ha curado a " + objetivo.getNombre() + " +" + cantidadCurada + " HP.");
             return cantidadCurada;
         }
         System.out.println(getNombre() + " no tiene maná para realizar la curación.");
@@ -168,6 +181,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Se cura automáticamente un poco
+     * 
      * @return Cantidad de salud curada
      */
     @Override
@@ -189,6 +203,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Recibe daño
+     * 
      * @param cantidad Cantidad de daño a recibir
      */
     @Override
@@ -201,6 +216,7 @@ public class Mago extends personajeMagico implements Curacion {
 
     /**
      * Devuelve una representación en formato String del mago
+     * 
      * @return Representación en formato String del mago
      */
     @Override

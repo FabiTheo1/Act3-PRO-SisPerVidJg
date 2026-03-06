@@ -5,7 +5,6 @@ import MVC.exceptions.ManaInsuficienteException;
 /**
  * Clase Nigromante: Un tipo de personaje mágico que utiliza almas y sigilo.
  * Implementa la interfaz Sigiloso para habilidades de ocultamiento.
- * @author Jonay Rivero
  */
 public class Nigromante extends personajeMagico implements Sigiloso {
     private boolean tieneInvocacion;
@@ -14,15 +13,16 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Constructor de la clase Nigromante
-     * @param nombre Nombre del nigromante
-     * @param nivel Nivel del nigromante
-     * @param saludMax Salud máxima del nigromante
-     * @param mana Mana del nigromante
-     * @param poderMagico Poder mágico del nigromante
-     * @param inteligencia Inteligencia del nigromante
+     * 
+     * @param nombre          Nombre del nigromante
+     * @param nivel           Nivel del nigromante
+     * @param saludMax        Salud máxima del nigromante
+     * @param mana            Mana del nigromante
+     * @param poderMagico     Poder mágico del nigromante
+     * @param inteligencia    Inteligencia del nigromante
      * @param tieneInvocacion Si el nigromante tiene invocación
      * @param almasCosechadas Almas cosechadas por el nigromante
-     * @param tipoInvocacion Tipo de invocación del nigromante
+     * @param tipoInvocacion  Tipo de invocación del nigromante
      */
     public Nigromante(String nombre, int nivel, int saludMax, int mana, int poderMagico, int inteligencia,
             boolean tieneInvocacion, int almasCosechadas, String tipoInvocacion) {
@@ -37,7 +37,9 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Establece si el nigromante tiene invocación
-     * @param tieneInvocacion true si el nigromante tiene invocación, false en caso contrario
+     * 
+     * @param tieneInvocacion true si el nigromante tiene invocación, false en caso
+     *                        contrario
      */
     public void setTieneInvocacion(boolean tieneInvocacion) {
         this.tieneInvocacion = tieneInvocacion;
@@ -45,6 +47,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Obtiene las almas cosechadas por el nigromante
+     * 
      * @return Almas cosechadas por el nigromante
      */
     public int getAlmasCosechadas() {
@@ -53,6 +56,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Establece las almas cosechadas por el nigromante
+     * 
      * @param almasCosechadas Almas cosechadas por el nigromante
      */
     public void setAlmasCosechadas(int almasCosechadas) {
@@ -61,6 +65,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Obtiene el tipo de invocación del nigromante
+     * 
      * @return Tipo de invocación del nigromante
      */
     public String getTipoInvocacion() {
@@ -69,6 +74,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Establece el tipo de invocación del nigromante
+     * 
      * @param tipoInvocacion Tipo de invocación del nigromante
      */
     public void setTipoInvocacion(String tipoInvocacion) {
@@ -79,6 +85,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Ataca a un objetivo
+     * 
      * @param objetivo Objetivo al que atacar
      */
     @Override
@@ -96,6 +103,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Usa la habilidad especial del nigromante
+     * 
      * @throws ManaInsuficienteException Si no tiene maná suficiente
      */
     @Override
@@ -105,7 +113,8 @@ public class Nigromante extends personajeMagico implements Sigiloso {
             // cosechadas)
             consumirMana(30);
             int danioAlmas = almasCosechadas * 5;
-            System.out.println(getNombre() + " libera las almas cosechadas causando " + danioAlmas + " de daño arcano.");
+            System.out.println(
+                    getNombre() + " libera las almas cosechadas causando " + danioAlmas + " de daño arcano.");
             // Reseteamos las almas tras el uso de la habilidad
             this.almasCosechadas = 0;
         } catch (ManaInsuficienteException e) {
@@ -117,12 +126,14 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Intenta invocar una criatura consumiendo maná.
+     * 
      * @throws ManaInsuficienteException si no tiene maná suficiente.
      */
     public void invocar() throws ManaInsuficienteException {
         consumirMana(40);
         this.tieneInvocacion = true;
-        System.out.println("¡Oscuridad! Un guerrero " + tipoInvocacion + " surge de la tierra bajo el mando de " + getNombre());
+        System.out.println("¡Oscuridad! Un guerrero " + tipoInvocacion + " surge de la tierra bajo el mando de "
+                + getNombre());
     }
 
     // --- IMPLEMENTACIÓN DE INTERFAZ (Sigiloso) ---
@@ -139,6 +150,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
 
     /**
      * Devuelve una representación en formato String del nigromante
+     * 
      * @return Representación en formato String del nigromante
      */
     @Override

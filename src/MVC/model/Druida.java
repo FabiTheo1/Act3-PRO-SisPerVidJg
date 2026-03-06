@@ -5,7 +5,6 @@ import MVC.exceptions.ManaInsuficienteException;
 /**
  * Clase Druida: Personaje mágico que utiliza el poder de la naturaleza.
  * Puede cambiar de forma y realizar curaciones constantes.
- * @author Jonay Rivero
  */
 public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
@@ -13,16 +12,17 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
     private boolean enArmonia; // Bonus pasivo de regeneración
     private int nivelNaturaleza;
 
-   /**
-    * Constructor de la clase Druida
-    * @param nombre Nombre del druida
-    * @param nivel Nivel del druida
-    * @param saludMax Salud máxima del druida
-    * @param mana Mana del druida
-    * @param poderMagico Poder mágico del druida
-    * @param formaActual Forma actual del druida
-    * @param nivelNaturaleza Nivel de naturaleza del druida
-    */
+    /**
+     * Constructor de la clase Druida
+     * 
+     * @param nombre          Nombre del druida
+     * @param nivel           Nivel del druida
+     * @param saludMax        Salud máxima del druida
+     * @param mana            Mana del druida
+     * @param poderMagico     Poder mágico del druida
+     * @param formaActual     Forma actual del druida
+     * @param nivelNaturaleza Nivel de naturaleza del druida
+     */
     public Druida(String nombre, int nivel, int saludMax, int mana, int poderMagico,
             String formaActual, int nivelNaturaleza) {
         super(nombre, nivel, saludMax, mana, poderMagico);
@@ -33,6 +33,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Obtiene la forma actual del druida
+     * 
      * @return Forma actual del druida
      */
     public String getFormaActual() {
@@ -41,6 +42,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Establece la forma actual del druida
+     * 
      * @param formaActual Nueva forma del druida
      */
     public void setFormaActual(String formaActual) {
@@ -49,6 +51,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Obtiene el nivel de naturaleza del druida
+     * 
      * @return Nivel de naturaleza del druida
      */
     public int getNivelNaturaleza() {
@@ -57,6 +60,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Establece el nivel de naturaleza del druida
+     * 
      * @param nivelNaturaleza Nuevo nivel de naturaleza del druida
      */
     public void setNivelNaturaleza(int nivelNaturaleza) {
@@ -67,6 +71,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Ataca a un objetivo
+     * 
      * @param objetivo Objetivo al que atacar
      */
     @Override
@@ -94,6 +99,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Usa la habilidad especial del druida
+     * 
      * @throws ManaInsuficienteException Si no tiene maná suficiente
      */
     @Override
@@ -115,6 +121,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Cura a un objetivo
+     * 
      * @param objetivo Objetivo al que curar
      * @return Cantidad de salud curada
      */
@@ -135,6 +142,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Se cura automáticamente un poco si está en armonía
+     * 
      * @return Cantidad de salud curada
      */
     @Override
@@ -171,6 +179,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Cambia la forma del druida
+     * 
      * @param nuevaForma Nueva forma del druida
      */
     public void cambiarForma(String nuevaForma) {
@@ -180,6 +189,7 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
 
     /**
      * Devuelve una representación en formato String del druida
+     * 
      * @return Representación en formato String del druida
      */
     @Override

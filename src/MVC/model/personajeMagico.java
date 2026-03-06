@@ -4,19 +4,21 @@ import MVC.exceptions.ManaInsuficienteException;
 
 /**
  * Clase personajeMagico: Clase abstracta que representa a un personaje mágico.
+ * 
  * @author Jonay Rivero
  */
-public abstract class personajeMagico extends Personaje  {
+public abstract class personajeMagico extends Personaje {
     protected int mana;
     protected int manaMax;
     protected int poderMagico;
 
     /**
      * Constructor de la clase personajeMagico
-     * @param nombre Nombre del personaje mágico
-     * @param nivel Nivel del personaje mágico
-     * @param saludMax Salud máxima del personaje mágico
-     * @param mana Mana del personaje mágico
+     * 
+     * @param nombre      Nombre del personaje mágico
+     * @param nivel       Nivel del personaje mágico
+     * @param saludMax    Salud máxima del personaje mágico
+     * @param mana        Mana del personaje mágico
      * @param poderMagico Poder mágico del personaje mágico
      */
     protected personajeMagico(String nombre, int nivel, int saludMax, int mana, int poderMagico) {
@@ -28,6 +30,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Obtiene el maná del personaje mágico
+     * 
      * @return Maná del personaje mágico
      */
     public int getMana() {
@@ -36,6 +39,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Establece el maná del personaje mágico
+     * 
      * @param mana Maná del personaje mágico
      */
     public void setMana(int mana) {
@@ -50,6 +54,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Obtiene el maná máximo del personaje mágico
+     * 
      * @return Maná máximo del personaje mágico
      */
     public int getManaMax() {
@@ -58,6 +63,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Establece el maná máximo del personaje mágico
+     * 
      * @param manaMax Maná máximo del personaje mágico
      */
     public void setManaMax(int manaMax) {
@@ -68,6 +74,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Obtiene el poder mágico del personaje mágico
+     * 
      * @return Poder mágico del personaje mágico
      */
     public int getPoderMagico() {
@@ -76,6 +83,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Establece el poder mágico del personaje mágico
+     * 
      * @param poderMagico Poder mágico del personaje mágico
      */
     public void setPoderMagico(int poderMagico) {
@@ -85,7 +93,8 @@ public abstract class personajeMagico extends Personaje  {
     }
 
     /**
-     * Gasta maná 
+     * Gasta maná
+     * 
      * @param cantidad Cantidad de maná a gastar
      * @return true si se gastó maná, false en caso contrario
      */
@@ -99,6 +108,7 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Regenera maná
+     * 
      * @param cantidad Cantidad de maná a regenerar
      */
     public void regenerarMana(int cantidad) {
@@ -109,13 +119,16 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Consume maná
+     * 
      * @param cantidad Cantidad de maná a consumir
      * @throws ManaInsuficienteException Si no hay maná suficiente
      */
     protected void consumirMana(int cantidad) throws ManaInsuficienteException {
         if (this.mana < cantidad) {
             throw new ManaInsuficienteException(
-                    getNombre() + " no tiene maná suficiente (" + mana + "/" + cantidad + ")"); // Lanza la excepción si no hay maná suficiente
+                    getNombre() + " no tiene maná suficiente (" + mana + "/" + cantidad + ")"); // Lanza la excepción si
+                                                                                                // no hay maná
+                                                                                                // suficiente
         }
         this.mana -= cantidad;
     }
@@ -127,8 +140,9 @@ public abstract class personajeMagico extends Personaje  {
 
     /**
      * Ataca a un objetivo
+     * 
      * @param objetivo Objetivo al que atacar
      */
     public abstract void atacar(Personaje objetivo);
-    
+
 }
