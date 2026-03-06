@@ -72,8 +72,13 @@ Ejecuta el método main.
 ¡Sigue las instrucciones del menú interactivo en la consola!
 
 ## 👨‍💻 Equipo de Desarrollo
+
 Este proyecto fue desarrollado de forma colaborativa:MiembroRol / Contribuciones Principales
+
 Daniel Desarrollo del Controlador (`GestorJuego`), validaciones de la lista de personajes y creación de la estructura base del Modelo (`Personaje`).
+
 Fabian Director de Juego. Integración MVC principal (App.java, ConsolaView.java), Patrón Composición (Arma.java), Clases CombatienteDistancia y sub-clases. Menús y Motor de Combate contra el Orco.
+
 Jeremi Desarrollo de PersonajeFisico, Excepciones personalizadas (MVC.exceptions), Clases Guerrero, Caballero, Asesino. Lógica de impactos críticos y combos.
+
 Jonay Desarrollo de PersonajeMagico, Clases Mago, Nigromante, Druida. Lógica de consumo/regeneración de maná, transformaciones animales y mecánicas de recolección de almas.
