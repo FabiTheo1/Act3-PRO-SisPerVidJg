@@ -1,8 +1,7 @@
 package MVC.app;
 
-import MVC.view.ConsolaView;
-
 public class App {
+<<<<<<< HEAD
     public static void main(String[] args) {
 <<<<<<< HEAD
         ConsolaView vista = new ConsolaView();
@@ -42,5 +41,9 @@ public class App {
 =======
 
 >>>>>>> origin/PersonajesFisicos-Jeremi
+=======
+    public static void main(String[] args) throws Exception {
+        
+>>>>>>> origin/Core-Juego-Daniel
     }
 }
