@@ -4,7 +4,7 @@ package MVC.model;
  * CLASE ORCO (Enemigo NPC) CREADA POR FABIAN (Director de Juego)
  * Un enemigo para la prueba de combate.
  */
-public class Orco extends Fisico {
+public class Orco extends PersonajeFisico {
     private Arma.EspadaCorta espada;
     private Arma.EscudoPequeno escudo;
 

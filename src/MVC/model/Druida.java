@@ -2,33 +2,26 @@ package MVC.model;
 
 import MVC.exceptions.ManaInsuficienteException;
 
+//TODOS: Hay cambios implementados por Fabian (echar culpa)
+
 /**
  * Clase Druida: Personaje mágico que utiliza el poder de la naturaleza.
  * Puede cambiar de forma y realizar curaciones constantes.
  */
-public class Druida extends personajeMagico implements Curacion, Sigiloso {
-
-    private String formaActual; // Ejemplo: "Humano", "Oso", "Lince"
-    private boolean enArmonia; // Bonus pasivo de regeneración
+public class Druida extends PersonajeMagico implements Curacion, Sigiloso {
+    private String formaActual;
+    private boolean enArmonia;
     private int nivelNaturaleza;
+    private Arma.BastonMagico baston; // Composición
+    private String formaAnimalElegida; // NUEVO
 
-    /**
-     * Constructor de la clase Druida
-     * 
-     * @param nombre          Nombre del druida
-     * @param nivel           Nivel del druida
-     * @param saludMax        Salud máxima del druida
-     * @param mana            Mana del druida
-     * @param poderMagico     Poder mágico del druida
-     * @param formaActual     Forma actual del druida
-     * @param nivelNaturaleza Nivel de naturaleza del druida
-     */
-    public Druida(String nombre, int nivel, int saludMax, int mana, int poderMagico,
-            String formaActual, int nivelNaturaleza) {
+    public Druida(String nombre, int nivel, int saludMax, int mana, int poderMagico, String formaAnimalElegida, int nivelNaturaleza) {
         super(nombre, nivel, saludMax, mana, poderMagico);
-        this.formaActual = formaActual;
+        this.formaActual = "Humano"; // Siempre nace humano
+        this.formaAnimalElegida = formaAnimalElegida;
         this.nivelNaturaleza = nivelNaturaleza;
         this.enArmonia = true;
+        this.baston = new Arma.BastonMagico();
     }
 
     /**
@@ -76,23 +69,22 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
      */
     @Override
     public void atacar(Personaje objetivo) {
-        // El daño depende de la forma actual
-        if (formaActual.equalsIgnoreCase("Oso")) {
-            int danioFisico = 15 + (nivelNaturaleza * 2);
-            System.out.println(getNombre() + " en forma de Oso desgarra a " + objetivo.getNombre());
+        // Si está transformado, pega muchísimo más duro
+        if (formaActual.equals(formaAnimalElegida)) {
+            int danioFisico = 25 + (getNivelNaturaleza() * 4);
+            System.out.println(getNombre() + " en forma de " + formaActual + " embiste salvajemente a " + objetivo.getNombre());
             objetivo.recibirDanio(danioFisico);
         } else {
             int costeMana = 8;
-            // Intenta gastar maná para un ataque mágico
             if (gastarMana(costeMana)) {
                 int danioMagico = 12 + getPoderMagico();
                 System.out.println(getNombre() + " lanza Raíces Enredantes a " + objetivo.getNombre());
-                // Aplica el daño al objetivo
                 objetivo.recibirDanio(danioMagico);
             } else {
-                // Si no tiene maná, realiza un ataque físico débil
-                System.out.println(getNombre() + " golpea débilmente con su bastón.");
-                objetivo.recibirDanio(4);
+                // Golpe físico con el bastón en lugar de golpe débil genérico
+                int danioFisico = 4 + baston.getDanioBase();
+                System.out.println(getNombre() + " se queda sin maná y golpea con su " + baston.getNombre() + ".");
+                objetivo.recibirDanio(danioFisico);
             }
         }
     }
@@ -105,14 +97,13 @@ public class Druida extends personajeMagico implements Curacion, Sigiloso {
     @Override
     public void usarHabilidadEspecial() {
         try {
-            // Consume maná para usar la habilidad especial
-            consumirMana(45);
-            this.formaActual = "Espíritu del Bosque";
-            System.out.println(getNombre() + " trasciende a su forma de Espíritu. ¡Poder mágico aumentado!");
-            // Aumenta el poder mágico del druida
-            setPoderMagico(getPoderMagico() + 10);
+            consumirMana(30);
+            this.cambiarForma(formaAnimalElegida);
+            // Bufos de vida
+            setSaludMax(getSaludMax() + 60);
+            setSalud(getSalud() + 60);
+            System.out.println("🐻 ¡" + getNombre() + " se ha transformado en un(a) " + formaAnimalElegida + " gigante! Su salud y fuerza se disparan.");
         } catch (ManaInsuficienteException e) {
-            // Si no tiene maná suficiente, muestra un mensaje de error
             System.out.println("La naturaleza no responde: " + e.getMessage());
         }
     }

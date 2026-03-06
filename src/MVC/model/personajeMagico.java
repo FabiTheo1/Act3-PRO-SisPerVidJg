@@ -7,7 +7,7 @@ import MVC.exceptions.ManaInsuficienteException;
  * 
  * @author Jonay Rivero
  */
-public abstract class personajeMagico extends Personaje {
+public abstract class PersonajeMagico extends Personaje {
     protected int mana;
     protected int manaMax;
     protected int poderMagico;
@@ -21,7 +21,7 @@ public abstract class personajeMagico extends Personaje {
      * @param mana        Mana del personaje mágico
      * @param poderMagico Poder mágico del personaje mágico
      */
-    protected personajeMagico(String nombre, int nivel, int saludMax, int mana, int poderMagico) {
+    protected PersonajeMagico(String nombre, int nivel, int saludMax, int mana, int poderMagico) {
         super(nombre, nivel, saludMax);
         this.manaMax = mana;
         this.mana = mana;

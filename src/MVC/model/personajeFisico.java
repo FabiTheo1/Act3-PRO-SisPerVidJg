@@ -8,7 +8,7 @@ import MVC.exceptions.AtributoInvalidoException;
  * @author Jeremi
  * @since 2026-03-01
  */
-public abstract class personajeFisico extends Personaje {
+public abstract class PersonajeFisico extends Personaje {
     private int fuerza;
     private int defensa;
 
@@ -21,7 +21,7 @@ public abstract class personajeFisico extends Personaje {
      * @param fuerza   Fuerza del personaje
      * @param defensa  Defensa del personaje
      */
-    protected personajeFisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
+    protected PersonajeFisico(String nombre, int nivel, int saludMax, int fuerza, int defensa) {
         super(nombre, nivel, saludMax);
         setFuerza(fuerza);
         setDefensa(defensa);

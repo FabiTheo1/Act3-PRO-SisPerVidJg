@@ -2,38 +2,27 @@ package MVC.model;
 
 import MVC.exceptions.ManaInsuficienteException;
 
+//TODOS: Hay cambios implementados por Fabian (echar culpa)
+
 /**
  * Clase Mago: Representa un personaje de tipo mágico especializado en elementos
  * y curación.
  * Hereda de personajeMagico e implementa la interfaz Curacion.
  */
 
-public class Mago extends personajeMagico implements Curacion {
+public class Mago extends PersonajeMagico implements Curacion {
     private String elemento;
     private String escuela;
-    private boolean tieneGrimorio;
+    private Arma armaEquipada; // Grimorio o Bastón
     private Personaje objetivo;
 
-    /**
-     * Constructor de la clase Mago
-     * 
-     * @param nombre        Nombre del mago
-     * @param nivel         Nivel del mago
-     * @param saludMax      Salud máxima del mago
-     * @param mana          Mana del mago
-     * @param poderMagico   Poder mágico del mago
-     * @param elemento      Elemento del mago
-     * @param escuela       Escuela del mago
-     * @param tieneGrimorio Si el mago tiene grimorio
-     * @param objetivo      Objetivo del mago
-     */
-    public Mago(String nombre, int nivel, int saludMax, int mana, int poderMagico, String elemento, String escuela,
-            boolean tieneGrimorio, Personaje objetivo) {
+    public Mago(String nombre, int nivel, int saludMax, int mana, int poderMagico, String elemento, String escuela, boolean tieneGrimorio, Personaje objetivo) {
         super(nombre, nivel, saludMax, mana, poderMagico);
         this.elemento = elemento;
         this.escuela = escuela;
-        this.tieneGrimorio = tieneGrimorio;
         this.objetivo = objetivo;
+        // Asignación inteligente de arma
+        this.armaEquipada = tieneGrimorio ? new Arma.Grimorio() : new Arma.BastonMagico();
     }
 
     // --- GETTERS Y SETTERS ---
@@ -92,24 +81,6 @@ public class Mago extends personajeMagico implements Curacion {
         this.escuela = escuela;
     }
 
-    /**
-     * Verifica si el mago tiene grimorio
-     * 
-     * @return true si el mago tiene grimorio, false en caso contrario
-     */
-    public boolean isTieneGrimorio() {
-        return tieneGrimorio;
-    }
-
-    /**
-     * Establece si el mago tiene grimorio
-     * 
-     * @param tieneGrimorio true si el mago tiene grimorio, false en caso contrario
-     */
-    public void setTieneGrimorio(boolean tieneGrimorio) {
-        this.tieneGrimorio = tieneGrimorio;
-    }
-
     // --- LÓGICA DE COMBATE (Sobrescribe Personaje) ---
 
     /**
@@ -120,22 +91,19 @@ public class Mago extends personajeMagico implements Curacion {
     @Override
     public void atacar(Personaje objetivo) {
         int costeMana = 10;
-        // Intentamos gastar maná para un ataque mágico
         if (gastarMana(costeMana)) {
-            // Calcula el daño base
             int danioBase = 10 + getPoderMagico();
-
-            // Bonus pasivo si el mago posee su libro de hechizos
-            if (tieneGrimorio) {
-                danioBase += 5;
+            // Si tiene Grimorio equipado, suma su daño al hechizo
+            if (armaEquipada instanceof Arma.Grimorio) {
+                danioBase += armaEquipada.getDanioBase();
             }
-
             System.out.println(getNombre() + " lanza un hechizo de " + elemento + " a " + objetivo.getNombre());
             objetivo.recibirDanio(danioBase);
         } else {
-            // Si no hay maná, realiza un ataque físico muy débil
-            System.out.println(getNombre() + " no tiene maná suficiente. Realiza un ataque físico débil.");
-            objetivo.recibirDanio(2);
+            // Si no hay maná, golpea físicamente con su arma
+            int danioFisico = 2 + armaEquipada.getDanioBase();
+            System.out.println(getNombre() + " no tiene maná suficiente. Golpea con su " + armaEquipada.getNombre() + ".");
+            objetivo.recibirDanio(danioFisico);
         }
     }
 
@@ -147,10 +115,14 @@ public class Mago extends personajeMagico implements Curacion {
     @Override
     public void usarHabilidadEspecial() {
         try {
-            // Habilidad de alto coste que requiere gestión de excepciones
             consumirMana(40);
-            System.out.println(
-                    getNombre() + " canaliza la energía de la escuela " + escuela + " para un ataque devastador.");
+            int danioMasivo = (getPoderMagico() * 2) + 20;
+            System.out.println(" ¡" + getNombre() + " canaliza la energía de la escuela de " + getEscuela() + " y lanza un hechizo devastador!");
+            if (getObjetivo() != null) {
+                getObjetivo().recibirDanio(danioMasivo);
+            } else {
+                System.out.println("Pero no hay objetivo a la vista...");
+            }
         } catch (ManaInsuficienteException e) {
             System.out.println("Error de lanzamiento: " + e.getMessage());
         }

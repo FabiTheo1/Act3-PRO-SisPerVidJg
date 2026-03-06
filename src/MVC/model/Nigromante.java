@@ -2,36 +2,24 @@ package MVC.model;
 
 import MVC.exceptions.ManaInsuficienteException;
 
+//TODOS: Hay cambios implementados por Fabian (echar culpa)
+
 /**
  * Clase Nigromante: Un tipo de personaje mágico que utiliza almas y sigilo.
  * Implementa la interfaz Sigiloso para habilidades de ocultamiento.
  */
-public class Nigromante extends personajeMagico implements Sigiloso {
+public class Nigromante extends PersonajeMagico implements Sigiloso {
     private boolean tieneInvocacion;
     private int almasCosechadas;
     private String tipoInvocacion;
+    private Arma.Grimorio grimorioOscuro; // Composición
 
-    /**
-     * Constructor de la clase Nigromante
-     * 
-     * @param nombre          Nombre del nigromante
-     * @param nivel           Nivel del nigromante
-     * @param saludMax        Salud máxima del nigromante
-     * @param mana            Mana del nigromante
-     * @param poderMagico     Poder mágico del nigromante
-     * @param inteligencia    Inteligencia del nigromante
-     * @param tieneInvocacion Si el nigromante tiene invocación
-     * @param almasCosechadas Almas cosechadas por el nigromante
-     * @param tipoInvocacion  Tipo de invocación del nigromante
-     */
-    public Nigromante(String nombre, int nivel, int saludMax, int mana, int poderMagico, int inteligencia,
-            boolean tieneInvocacion, int almasCosechadas, String tipoInvocacion) {
+    public Nigromante(String nombre, int nivel, int saludMax, int mana, int poderMagico, int inteligencia, boolean tieneInvocacion, int almasCosechadas, String tipoInvocacion) {
         super(nombre, nivel, saludMax, mana, poderMagico);
         this.tieneInvocacion = tieneInvocacion;
         this.almasCosechadas = almasCosechadas;
         this.tipoInvocacion = tipoInvocacion;
-
-        // El poder mágico del nigromante se potencia con su inteligencia inicial
+        this.grimorioOscuro = new Arma.Grimorio(); // Equipado
         setPoderMagico(getPoderMagico() + inteligencia);
     }
 
@@ -90,15 +78,10 @@ public class Nigromante extends personajeMagico implements Sigiloso {
      */
     @Override
     public void atacar(Personaje objetivo) {
-        // Un ataque básico de drenaje de vida
-        int danioDrenaje = 8 + (getPoderMagico() / 3);
-        System.out.println(getNombre() + " drena la vida de " + objetivo.getNombre() + ".");
-
+        int danioDrenaje = 8 + (getPoderMagico() / 3) + grimorioOscuro.getDanioBase();
+        System.out.println(getNombre() + " lee su " + grimorioOscuro.getNombre() + " y drena la vida de " + objetivo.getNombre() + ".");
         objetivo.recibirDanio(danioDrenaje);
-
-        // Lógica de cosecha: cada ataque exitoso aumenta su contador de almas
         this.almasCosechadas++;
-        System.out.println("[COSECHA] Almas totales: " + almasCosechadas);
     }
 
     /**
@@ -120,6 +103,7 @@ public class Nigromante extends personajeMagico implements Sigiloso {
         } catch (ManaInsuficienteException e) {
             System.out.println("Error de magia: " + e.getMessage());
         }
+        
     }
 
     // --- LÓGICA DE INVOCACIÓN (Propios del Nigromante) ---

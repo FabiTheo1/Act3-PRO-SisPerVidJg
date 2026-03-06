@@ -4,7 +4,7 @@ package MVC.model;
  * CLASE PADRE ABSTRACTA CREADO POR FABIAN (Director de Juego)- CombatienteDistancia
  * Clase abstracta que permite que hereden clases especificas.
  */
-public abstract class CombatienteDistancia extends Fisico {
+public abstract class CombatienteDistancia extends PersonajeFisico {
     // Cambiamos a protected para que las clases hijas puedan acceder al arma
     protected Arma armaEquipada; 
 

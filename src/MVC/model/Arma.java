@@ -92,4 +92,39 @@ public abstract class Arma {
         // Escudo que pueden utilizar los combatientes a distancia.
         public EscudoPequeno() { super("Escudo de Madera", 0, 0, false); }
     }
+
+    // --- ARMAS PARA LAS NUEVAS CLASES (MERGE FINAL) ---
+
+    public static class Lanza extends Arma {
+        public Lanza() { super("Lanza de Caballería", 20, 0, false); }
+    }
+
+    public static class HachaBatalla extends Arma {
+        public HachaBatalla() { super("Hacha de Batalla", 25, 0, false); }
+    }
+
+    public static class HachaArrojadiza extends Arma {
+        public HachaArrojadiza() { super("Hacha Arrojadiza", 18, 5, true); } // 5 usos
+    }
+
+    public static class CuchilloArrojadizo extends Arma {
+        public CuchilloArrojadizo() { super("Cuchillo Venenoso", 12, 10, true); } // 10 usos
+    }
+
+    public static class BastonMagico extends Arma {
+        public BastonMagico() { super("Bastón de Roble", 8, 0, false); }
+    }
+
+    public static class Grimorio extends Arma {
+        public Grimorio() { super("Libro de Hechizos Antiguo", 5, 0, false); }
+    }
+
+    public static class Mandoble extends Arma {
+        // Daño devastador, pero no permite llevar escudo
+        public Mandoble() { super("Mandoble Pesado a Dos Manos", 40, 0, false); }
+    }
+
+    public static class EspadaLarga extends Arma {
+        public EspadaLarga() { super("Espada Larga de Acero", 18, 0, false); }
+    }
 }
